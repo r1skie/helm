@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+@config '../../tailwind.config.mjs';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== Typography ===== */
+:root {
+  --font-sans-stack: var(--font-sans), 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono-stack: var(--font-mono), 'SF Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ===== Motion tokens ===== */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-quick: 120ms;
+  --motion-base: 180ms;
+  --motion-deliberate: 280ms;
+}
+
+/* ===== Spacing / radius / elevation ===== */
+:root {
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --elevation-1: 0 1px 2px -1px rgb(0 0 0 / 0.30), inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+  --elevation-2: 0 4px 12px -4px rgb(0 0 0 / 0.35), inset 0 1px 0 0 rgb(255 255 255 / 0.05);
+  --elevation-3: 0 12px 32px -8px rgb(0 0 0 / 0.45), inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+  --tracking-tight: -0.02em;
+  --tracking-display: -0.035em;
+}
+
+/* ===== Theme: Mono (default) — pure OLED ===== */
+:root,
+.mono,
+.dark {
+  --color-base: 0 0 0;
+  --color-sidebar: 8 8 8;
+  --color-item: 14 14 14;
+  --color-border: 36 36 36;
+  --color-content: 210 210 210;
+  --color-altwhite: 140 140 140;
+  --color-dynamic: 205 205 205;
+  --color-success: 200 200 200;
+  --color-warning: 220 220 220;
+  --color-danger: 235 235 235;
+  --color-info: 200 200 200;
+}
+
+/* ===== Theme: Studio — soft blue-grey ===== */
+.studio {
+  --color-base: 21 23 28;
+  --color-sidebar: 27 32 40;
+  --color-item: 35 40 49;
+  --color-border: 42 49 59;
+  --color-content: 220 227 236;
+  --color-altwhite: 148 163 184;
+  --color-dynamic: 93 173 226;
+  --color-success: 74 222 128;
+  --color-warning: 250 204 21;
+  --color-danger: 248 113 113;
+  --color-info: 96 165 250;
+}
+
+html,
+body {
+  height: 100%;
+  background: rgb(var(--color-base));
+  color: rgb(var(--color-content));
+  font-family: var(--font-sans-stack);
+}
+
+/* Fluid root sizing — rem-based UI scales with the window. */
+html {
+  font-size: clamp(12px, min(1.25vw, 2vh), 22px);
+}
+
+code, kbd, .font-mono, [class*='tabular-nums'] {
+  font-family: var(--font-mono-stack);
+}
+
+* {
+  border-color: rgb(var(--color-border));
+}
+
+/* Frosted panels */
+.surface {
+  background: rgb(var(--color-item) / 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(var(--color-border) / 0.6);
+  border-radius: 1rem;
+}
+.surface-soft {
+  background: rgb(var(--color-sidebar) / 0.6);
+  border: 1px solid rgb(var(--color-border) / 0.4);
+  border-radius: 1rem;
+}
+.surface-elev {
+  background: rgb(var(--color-item) / 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(var(--color-border) / 0.4);
+  border-radius: 0.75rem;
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.03);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border));
+  border-radius: 8px;
+  border: 2px solid rgb(var(--color-sidebar));
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--color-altwhite) / 0.4); }
+
+/* Page transition */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg,
+    rgb(var(--color-item)) 25%,
+    rgb(var(--color-border)) 50%,
+    rgb(var(--color-item)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; }
+}

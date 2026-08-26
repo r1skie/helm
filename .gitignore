@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# Tauri (added when wrapped)
+src-tauri/target/
+src-tauri/gen/
+
+# Tauri updater signing key (SECRET — never commit)
+src-tauri/.tauri-signing.key
+src-tauri/.tauri-signing.key.pub
